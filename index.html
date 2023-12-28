@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Ubuntu&display=swap" rel="stylesheet">
+    <title>twistynado's star test</title>
+    <style>
+        :root{
+            --bgmovespeed: 1s;
+            --deg: 0deg;
+        }
+
+        body{
+            font-family: 'Roboto Mono', monospace;
+            margin: 0;
+            background: black;
+            margin: 24px;
+            overflow: hidden;
+            color: white;
+            text-shadow: 0 0 8px #ffffff;
+        }
+
+        @keyframes slide{
+            from
+            {
+                transform: translate(0,0);
+            } 
+            to
+            {
+                transform: translate(256px, 0)
+            }
+        }
+        
+        .bg{
+            z-index: -1;
+            background: url("stars.png");
+            position: absolute;
+            left: calc(50% - 5000%);
+            top: calc(50% - 5000%);
+            width: 10000%;
+            height: 10000%;
+            rotate: var(--deg);
+            animation: slide var(--bgmovespeed) linear infinite;
+        }
+
+        .slider {
+            appearance: none;
+            width: 100%;
+            height: 15px;
+            background: #ffffff35;
+            outline: none;
+            opacity: 1;
+            border-radius: 25px;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #ffffff;
+            border-radius: 100%;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #ffffff;
+            cursor: pointer;
+            border-radius: 100%;
+        }
+        
+        </style>
+</head>
+<body>
+    <input name="speed" type="range" max="100" min="0" value="0" id="speed" class="slider">
+    <label for="speed" id="label">20% SPEED</label>
+    <input name="deg" type="range" max="360" min="0" value="0" id="deg" class="slider">
+    <label for="deg" id="label2">20% SPEED</label>
+
+    <div class="bg">
+    </div>
+
+    <script>
+        var slider = document.getElementById("speed");
+        var output = document.getElementById("label");
+        var slider2 = document.getElementById("deg");
+        var output2 = document.getElementById("label2");
+        output.innerHTML = slider.value + "% SPEED";
+        output2.innerHTML = slider2.value + " DEG"
+
+        slider.oninput = function() {
+            output.innerHTML = this.value + "% SPEED";
+            document.documentElement.style.setProperty("--bgmovespeed", (this.max - this.value) / 10 + .1 +"s")
+        } 
+
+        slider2.oninput = function() {
+            output2.innerHTML = this.value + " DEG";
+            document.documentElement.style.setProperty("--deg", this.value +"deg")
+        } 
+    </script>
+</body>
+
+</html>
